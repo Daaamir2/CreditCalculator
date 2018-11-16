@@ -2,6 +2,7 @@ package ru.itpark;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -9,43 +10,36 @@ import static org.junit.jupiter.api.Assertions.*;
 class CreditCalculatorTest {
 
     @Test
-    void finalAmount() {
+    void monthlyPayment() {
         {
             CreditCalculator calculator = new CreditCalculator();
-            long exception = calculator.finalAmount(100_000, 12, 10);
+            double exception = calculator.monthlyPayment(100_000, 12, 10);
 
-            assertEquals(105_480, exception);
+            assertEquals(8_791.59, exception);
         }
 
         {
             CreditCalculator calculator = new CreditCalculator();
-            long exception = calculator.finalAmount(200_000, 15, 12.5);
+            double exception = calculator.monthlyPayment(200_000, 15, 12.5);
 
-            assertEquals(217_020, exception);
+            assertEquals(14_471.30, exception);
         }
     }
 
     @Test
-    void monthlyPayment() {
+    void finalAmount() {
         {
             CreditCalculator calculator = new CreditCalculator();
-            long exception = calculator.monthlyPayment(100_000, 12, 10);
+            double exception = calculator.finalAmount(100_000, 12, 10);
 
-            assertEquals(8_792, exception);
+            assertEquals(105_499.05, exception);
         }
 
         {
             CreditCalculator calculator = new CreditCalculator();
-            long exception = calculator.monthlyPayment(200_000, 15, 12.5);
+            double exception = calculator.finalAmount(200_000, 15, 12.5);
 
-            assertEquals(14_471, exception);
-        }
-
-        {
-            CreditCalculator calculator = new CreditCalculator();
-            long exception = calculator.monthlyPayment(363_636, 27, 7.36);
-
-            assertEquals(14_655, exception);
+            assertEquals(217_069.50, exception);
         }
     }
 
@@ -53,9 +47,16 @@ class CreditCalculatorTest {
     void overpayment() {
         {
             CreditCalculator calculator = new CreditCalculator();
-            long exception = calculator.overpayment(100_000, 12, 10);
+            double exception = calculator.overpayment(100_000, 12, 10);
 
-            assertEquals(5480, exception);
+            assertEquals(5_499.05, exception);
+        }
+
+        {
+            CreditCalculator calculator = new CreditCalculator();
+            double exception = calculator.overpayment(200_000, 15, 12.5);
+
+            assertEquals(17_069.50, exception);
         }
     }
 
