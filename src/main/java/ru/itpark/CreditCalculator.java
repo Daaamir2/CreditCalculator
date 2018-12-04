@@ -9,12 +9,12 @@ import java.util.GregorianCalendar;
 
 public class CreditCalculator {
     private BigDecimal monthInYear = new BigDecimal(12);
-    private BigDecimal one = new BigDecimal(1);
+    private BigDecimal one = BigDecimal.ONE;
     private BigDecimal hundredPercent = new BigDecimal(100);
 
     public double monthlyPayment(double creditAmount, int termPlacementInMonths, double percentDouble) {
-        BigDecimal amount = new BigDecimal(creditAmount).setScale(2, RoundingMode.DOWN);
-        BigDecimal percent = new BigDecimal(percentDouble).setScale(2, RoundingMode.DOWN);
+        BigDecimal amount = new BigDecimal(Double.toString(creditAmount)).setScale(2, RoundingMode.DOWN);
+        BigDecimal percent = new BigDecimal(Double.toString(percentDouble)).setScale(2, RoundingMode.DOWN);
         BigDecimal percentInMonth = percent.divide(monthInYear, 5, RoundingMode.HALF_UP);
         BigDecimal interestRatePerMonth = percentInMonth.divide(hundredPercent, 8, RoundingMode.HALF_UP);
         BigDecimal onePlusInterest = one.add(interestRatePerMonth).setScale(8, RoundingMode.HALF_UP);
@@ -28,10 +28,10 @@ public class CreditCalculator {
     }
 
     public double finalAmount(double creditAmount, int termPlacementInMonths, double percentDouble) {
-        BigDecimal amount = new BigDecimal(creditAmount).setScale(2, RoundingMode.DOWN);
+        BigDecimal amount = new BigDecimal(Double.toString(creditAmount)).setScale(2, RoundingMode.DOWN);
         BigDecimal period = new BigDecimal(termPlacementInMonths);
         BigDecimal monthlyPayment = new BigDecimal(monthlyPayment(creditAmount, termPlacementInMonths, percentDouble)).setScale(2, RoundingMode.HALF_UP);
-        BigDecimal percent = new BigDecimal(percentDouble).setScale(2, RoundingMode.DOWN);
+        BigDecimal percent = new BigDecimal(Double.toString(percentDouble)).setScale(2, RoundingMode.DOWN);
         BigDecimal percentInMonth = percent.divide(monthInYear, 8, RoundingMode.HALF_UP);
         BigDecimal interestRatePerMonth = percentInMonth.divide(hundredPercent, 8, RoundingMode.HALF_UP);
 
@@ -47,7 +47,7 @@ public class CreditCalculator {
     }
 
     public double overpayment(double creditAmount, int termPlacementInMonths, double percentDouble) {
-        BigDecimal amount = new BigDecimal(creditAmount).setScale(2, RoundingMode.DOWN);
+        BigDecimal amount = new BigDecimal(Double.toString(creditAmount)).setScale(2, RoundingMode.DOWN);
         BigDecimal finalSum = new BigDecimal(finalAmount(creditAmount, termPlacementInMonths, percentDouble));
         BigDecimal overpayment = finalSum.add(amount.negate()).setScale(2, RoundingMode.HALF_UP);
 
